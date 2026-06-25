@@ -33,8 +33,8 @@ utils/
 ## Installation
 
 ```bash
-git clone <repository>
-cd qae-assignment
+git clone https://github.com/alex-pancho/sporty_home_task.git
+cd sporty_home_task
 
 python -m venv venv
 
