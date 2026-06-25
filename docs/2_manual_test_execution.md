@@ -9,12 +9,12 @@
 
 | Test Case | Status | Notes |
 |-----------|--------|-------|
-| TC-001: Happy Path | ❌ FAIL | [Brief note] |
-| TC-002: Min Stake | ✅ PASS  | [Brief note] |
-| TC-003: Max Stake | ✅ PASS / ❌ FAIL | [Brief note] |
-| TC-004: Insufficient Balance | ✅ PASS / ❌ FAIL | [Brief note] |
-| TC-005: Error Handling | ✅ PASS / ❌ FAIL | [Brief note] |
-| TC-006: Odds Selection | ✅ PASS / ❌ FAIL | [Brief note] |
+| TC-001: Happy Path | ❌ FAIL | [BUG-001], [BUG-002], [BUG-003] |
+| TC-002: Min Stake | ✅ PASS  | |
+| TC-003: Max Stake | ✅ PASS | |
+| TC-004: Insufficient Balance | ✅ PASS | |
+| TC-005: Error Handling | ✅ PASS |  |
+| TC-006: Odds Selection | ❌ FAIL | [BUG-004], [BUG-005] |
 
 ## Exploratory Testing Notes
 
@@ -27,34 +27,17 @@
 - [✅] Bet receipt accuracy (all fields match placement)
 - [✅] Modal close behavior (X button, backdrop click)
 
-### Observations
-```
-[Document any observations that don't fit into test cases]
-Example:
-- Balance updates correctly and immediately in header
-- Bet receipt displays timestamp in UTC
-- Decimal values with trailing zero (€10.0) are accepted
-```
-
 ## Defect Reports
 
+**Total Defects Found:** 5
+- Critical: 2
+- High: 2
+- Medium: 0
+- Low: 1
 
+**Test Cases Passed:** [4/6]  
+**Test Cases Failed:** [2/6]
 
-**Total Defects Found:** [X]
-- Critical: [X]
-- High: [X]
-- Medium: [X]
-- Low: [X]
+**Blocker Issues:** [Yes/No] — YES [BUG-001], [BUG-002], [BUG-003]
 
-**Test Cases Passed:** [X/6]  
-**Test Cases Failed:** [X/6]
-
-**Blocker Issues:** [Yes/No] — [If yes, list which ones block feature release]
-
-**Recommendation:** [READY FOR RELEASE / NEEDS FIXES / DO NOT RELEASE]
-
-## Notes for Developer/Automation
-
-- [Any observations about test data needs]
-- [Any flakiness or timing issues noticed]
-- [Any assumptions made during testing]
+**Recommendation:** NEEDS FIXES 
