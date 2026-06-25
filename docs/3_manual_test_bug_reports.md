@@ -236,3 +236,35 @@ Matches with odds of **1.70** should be visible in the list (Inclusive range).
 **Actual Result:**
 Matches with odds of **1.70** are hidden/filtered out. (They only appear if the "Min" is set to 1.69 or lower).
 
+
+Ви абсолютно праві. Це класичний приклад **невідповідності документації (Requirement-Implementation Mismatch)**.
+
+Якщо у технічному завданні (або вашій таблиці вимог) написано "Minimum €1.01", а функціонально система вимагає "€1.00" (або навпаки), це потрібно негайно виправити, оскільки **вимоги — це еталон, за яким ми оцінюємо правильність роботи продукту.**
+
+Ось як правильно оформити цей баг (або запит на оновлення документації):
+
+# DOC-001: Documentation Inconsistency - Minimum Stake Requirement
+
+**ID:** DOC-001
+**Priority:** 🟡 **LOW** 
+**Type:** Documentation / Requirement Error
+
+#### **Description**
+
+There is a discrepancy between the stated requirement for the minimum stake in the test plan documentation and the actual implementation of the application.
+
+* **Requirement 4.4 / Stake Validation:** Specifies "Minimum €1.01".
+* **Application Behavior:** Currently accepts/enforces a minimum of "€1.00".
+
+#### **Steps to Reproduce**
+
+1. Review the test plan documentation section **4.4 UI Error Messaging** and **Stake Validation**.
+2. Compare the text "Minimum €1.01" against the actual system behavior (which uses "€1.00" as the threshold).
+
+#### **Expected Result**
+
+The documentation and the application logic must be synchronized. If the business rule is €1.00, the documentation must be updated to reflect this value to avoid confusion during testing.
+
+#### **Actual Result**
+
+The documentation explicitly states "€1.01", creating ambiguity for the testing process and potential future compliance issues.

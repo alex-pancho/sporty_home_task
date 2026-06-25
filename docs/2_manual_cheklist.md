@@ -21,7 +21,7 @@
 | After submit, the UI must show an in-progress state and resolve to one final outcome (success or failure).| pass | |
 | On success: stake is deducted | **FAIL** | [BUG-002] |
 | On success: success receipt modal appears| pass | |
-| On failure: error modal appears with retry option| ?? | |
+| On failure: error modal appears with retry option| pass | |
 | 2.4 Success Receipt| pass | |
 | Receipt must show:| pass | |
 | Bet ID| pass | |
@@ -45,11 +45,13 @@
 | Stake min (per bet) €1.00  | pass | |
 | Stake max (per bet) €100.00  | pass | |
 | Stake precision: Up to 2 decimal places| pass | |
-| Minimum odds:1.01   | REMARK: now it's 1.00 | |
+| Minimum odds:1.01   | REMARK: now it's 1.00 | [DOC-001]  |
 | Maximum odds:1000.00   | REMARK: now it's 10.00 | |
 | 4. Validation Rules |  | |
 | Stake Validation |  | |
 | Required to place bet| pass | |
-| Must be numeric| pass | |
-| Minimum €1.01 | REMARK: now it's 1.00  | |
-| 3. Business Rules |  | |
+| Must be numeric | pass | |
+| Minimum €1.01 | REMARK: now it's 1.00  | [DOC-001] |
+| Maximum €100.00 | pass | |
+| Max 2 decimal places | pass | |
+| Must not exceed available balance | pass | |
