@@ -27,7 +27,7 @@
 - [✅] Bet receipt accuracy (all fields match placement)
 - [✅] Modal close behavior (X button, backdrop click)
 
-## Defect Reports
+## Summary
 
 **Total Defects Found:** 5
 - Critical: 2
@@ -40,4 +40,17 @@
 
 **Blocker Issues:** [Yes/No] — YES [BUG-001], [BUG-002], [BUG-003]
 
-**Recommendation:** NEEDS FIXES 
+**Quality Gate:** FAIL — Cannot release with BUG-001 (financial/legal risk)
+
+## Recommendations by Component
+
+**Frontend (UI Layer):**
+- [ ] BUG-002: Sync header balance after successful API response
+- [ ] BUG-003: Verify team order in receipt modal (use homeTeam, awayTeam fields correctly)
+- [ ] BUG-004: Add odds filter validation before apply
+- [ ] BUG-005: Use >= for min filter, not >
+
+**Backend (API Layer):**
+- [ ] BUG-001: Filter /api/matches to exclude kickoffDate < NOW
+- [ ] BUG-001: Add API validation to reject bets on past matches (409 Conflict)
+- [ ] Verify response data mapping for matchId -> teams order
