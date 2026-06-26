@@ -1,21 +1,27 @@
-from pages.elements import WebElement
-
-
+from pages.elements import WebElement, ManyWebElements
+from pages.locators import Locator
 
 class ItemProxy:
     def __init__(self, page):
         self.page = page
 
     def __getattr__(self, name: str) -> WebElement:
-        _xpath = self.page.locators.get(name)
-        if _xpath is None:
+
+        locator = self.page.locators.get(name)
+
+        if locator is None:
             msg = (
                 f"{self.page.__class__.__name__} has no xpath "
                 f"for element: {name}, "
                 f"maybe typo? Existing names are: {list(self.page.locators.keys())}"
             )
             raise AttributeError(msg)
-        return WebElement(driver=self.page.driver, xpath=_xpath)
+
+        if isinstance(locator, Locator):
+            cls = ManyWebElements if locator.many else WebElement
+            return cls(driver=self.page.driver, xpath=locator.xpath)
+
+        return WebElement(driver=self.page.driver, xpath=locator)
 
     def __dir__(self):
         return list(self.page.locators.keys()) + super().__dir__()

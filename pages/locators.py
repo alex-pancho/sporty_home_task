@@ -1,7 +1,12 @@
-from base_page import BasePage
+from dataclasses import dataclass
+
+@dataclass(frozen=True)
+class Locator:
+    xpath: str
+    many: bool = False
 
 
-class HomePageLocator(BasePage):
+class HomePageLocators:
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -17,9 +22,10 @@ class HomePageLocator(BasePage):
     all_match_cards = '//div[@class="card matchCard"]'
     card_badges = '//*[@id="match-list"]//span[@class="badge"]'
     team_names = '//div[@class="teams"]/div[@class="teamRow"]/span[@class="teamName"]'
-    home_win_buttons = '//button[contains(@id,"home")]'
-    draw_buttons = '//button[contains(@id,"draw")]'
-    away_win_buttons = '//button[contains(@id,"away")]'
+
+    home_win_buttons = Locator('//button[contains(@id,"home")]', many=True)
+    draw_buttons = Locator('//button[contains(@id,"draw")]',  many=True)
+    away_win_buttons = Locator('//button[contains(@id,"away")]',  many=True)
 
     # Bet Slip
     bet_slip = '//aside'
