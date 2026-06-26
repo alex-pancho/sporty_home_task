@@ -23,8 +23,6 @@ class WebElement():
 
         self._web_driver = kwargs.get('driver')
         self._locator = (By.XPATH, kwargs.get('xpath'))
-        # if "css" in  kwargs:
-        #     self._locator = (By.CSS_SELECTOR, kwargs['css'])
     
     def find(self, timeout=10):
         """ Find element on the page. """

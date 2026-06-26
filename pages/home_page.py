@@ -5,7 +5,7 @@ class HomePage(HomePageLocator):
 
     def __init__(self, driver, URL = ""):
         super().__init__(driver)
-        self.login_page_url = URL + "/login"
+        self.main_page_url = URL + "/login"
 
     def enter_email(self, email):
         email_field = self.item.input_email_locator
@@ -22,7 +22,7 @@ class HomePage(HomePageLocator):
         return self.item.error_message_locator.is_displayed()
 
     def is_still_on_login_page(self):
-        return self.driver.current_url == self.login_page_url
+        return self.driver.current_url == self.main_page_url
 
     def is_logout_button_presented(self):
         return self.item.logout_button_locator.is_displayed()

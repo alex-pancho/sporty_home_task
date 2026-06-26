@@ -1,4 +1,4 @@
-from pages.base_page import BasePage
+from base_page import BasePage
 
 
 class HomePageLocator(BasePage):
@@ -6,23 +6,41 @@ class HomePageLocator(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
-    menu_home = '//ul[@class="nav navbar-nav"]'
-    contacts_head = '//h2'
-    sign_in_button = '//button[.="Sign In"]'
-    sign_up_button = '//button[.="Sign Up"]'
-    username_by = '//[@name="email"]'
-    password_by = '//*[@id="signinPassword"]'
-    signin_by = '//form//div[.="Login"]'
-    contact_us = '//i[@class="fa"]'
-    category_menu = '//div[@class="panel-group category-products"]'
-    brands_menu = '//ul[@class="nav nav-pills nav-stacked"]'
-    view_product = '//ul[@class="nav nav-pills nav-justified"]'
-    features_items_section = '//div[@class="features_items"]'
-    add_to_cart_feature_item = '(//div[@class="overlay-content"])[5]'
-    view_cart = '//u[text()="View Cart"]'
-    continue_shopping = '//button[text()="Continue Shopping"]'
-    recommended_items_section = '//div[@class="recommended_items"]'
-    add_to_cart_recommended_item = '//div[@class="carousel-inner"]//a[text()="Add to cart"]'
-    subscription = '//input[@id="susbscribe_email"]'
-    submit_subscribe = '//button[@id="subscribe"]'
-    copyright = '//*[text()="Copyright ©"]'
+    # Header
+    balance_label = '//*[@id="header-balance"]/span[2]'
+
+    # Navigation / Buttons
+    place_bet_button = '//button[.="Place Bet"]'
+    close_receipt_button = '//button[.="Close"]'
+
+    # Match cards
+    all_match_cards = '//div[@class="card matchCard"]'
+    card_badges = '//*[@id="match-list"]//span[@class="badge"]'
+    team_names = '//div[@class="teams"]/div[@class="teamRow"]/span[@class="teamName"]'
+    home_win_buttons = '//button[contains(@id,"home")]'
+    draw_buttons = '//button[contains(@id,"draw")]'
+    away_win_buttons = '//button[contains(@id,"away")]'
+
+    # Bet Slip
+    bet_slip = '//aside'
+    bet_slip_balance = '//*[@id="bet-slip-balance"]'
+    teams = '//div[@class="betSelectionTeams"]'
+    winner = '//div[@class="betSelectionMarket"]'
+    selected_odds = '//span[@class="betSelectionOdds"]'
+    stake_input = '//input[@id="bet-slip-stake-input"]'
+    potential_payout = '//*[@id="bet-slip-potential-payout"]'
+
+    # Receipt Modal
+    receipt_modal = '//div[@class="card"]/div[@class="modalBody"]'
+    receipt_title = '//h2[@class="modalTitle"]'
+    bet_id = '//*[@id="modal-success-bet-id"]'
+    receipt_match = '//*[@id="modal-success-match"]'
+    receipt_stake = '//*[@id="modal-success-stake"]'
+    receipt_odds = '//*[@id="modal-success-odds"]'
+    receipt_payout = '//*[@id="modal-success-payout"]'
+    receipt_timestamp = '//*[@id="modal-success-placed-at"]'
+    receipt_close_button = '//*[@id="modal-success-close"]'
+
+    # Validation
+    stake_error = '//*[contains(@class,"error")]'
+    insufficient_balance_error = '//*[contains(text(),"Insufficient")]'
