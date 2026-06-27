@@ -5,10 +5,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.ui import WebDriverWait
+
 # import pages.add_root
 from frame.logger import setup_logger
 
 log = setup_logger("elements")
+
 
 class WebElement:
 
@@ -26,7 +28,7 @@ class WebElement:
                 EC.presence_of_element_located(self._locator)
             )
         except (EXCEPT.TimeoutException, EXCEPT.WebDriverException):
-            log.info('Element not found: %s', self._locator)
+            log.info("Element not found: %s", self._locator)
             return None
 
     def is_presented(self):
@@ -44,14 +46,14 @@ class WebElement:
                 EC.element_to_be_clickable(self._locator)
             )
         except (EXCEPT.TimeoutException, EXCEPT.WebDriverException):
-            log.info('Element not clickable: %s', self._locator)
+            log.info("Element not clickable: %s", self._locator)
             return None
 
     def click(self):
         element = self.wait_to_be_clickable()
 
         if not element:
-            raise AttributeError(f'Element not found: {self._locator}')
+            raise AttributeError(f"Element not found: {self._locator}")
 
         ActionChains(self._driver).move_to_element(element).click().perform()
 
@@ -62,13 +64,13 @@ class WebElement:
         element = self.find()
 
         if not element:
-            raise AttributeError(f'Element not found: {self._locator}')
+            raise AttributeError(f"Element not found: {self._locator}")
 
         element.clear()
         element.send_keys(value)
 
-    def get_text(self):
-        element = self.find()
+    def get_text(self, timeout=0.01):
+        element = self.find(timeout=timeout)
         return element.text if element else ""
 
     @property
@@ -84,16 +86,14 @@ class WebElement:
 
     def scroll_into_view(self):
         self._driver.execute_script(
-            "arguments[0].scrollIntoView({block:'center'});",
-            self.find()
+            "arguments[0].scrollIntoView({block:'center'});", self.find()
         )
 
     def screenshot(self, filename):
         self.scroll_into_view()
 
         self._driver.execute_script(
-            "arguments[0].style.border='3px solid red'",
-            self.find()
+            "arguments[0].style.border='3px solid red'", self.find()
         )
 
         self._driver.save_screenshot(filename)
@@ -109,7 +109,7 @@ class ManyWebElements(WebElement):
                 EC.presence_of_all_elements_located(self._locator)
             )
         except (EXCEPT.TimeoutException, EXCEPT.WebDriverException):
-            log.info('Elements not found: %s', self._locator)
+            log.info("Elements not found: %s", self._locator)
             return []
 
     def __getitem__(self, index):
@@ -141,11 +141,7 @@ class ManyWebElements(WebElement):
         )
 
     def send_keys(self, value):
-        raise NotImplementedError(
-            "ManyWebElements does not support send_keys()."
-        )
+        raise NotImplementedError("ManyWebElements does not support send_keys().")
 
     def clear(self):
-        raise NotImplementedError(
-            "ManyWebElements does not support clear()."
-        )
+        raise NotImplementedError("ManyWebElements does not support clear().")

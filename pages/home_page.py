@@ -1,3 +1,4 @@
+from time import sleep
 from pages.locators import HomePageLocators
 from pages.base_page import BasePage
 from frame.logger import setup_logger
@@ -5,7 +6,7 @@ from frame.logger import setup_logger
 log = setup_logger("home_page")
 
 
-def get_float_value(cleaned_text:str, strip_text:str):
+def get_float_value(cleaned_text: str, strip_text: str):
     cleaned_text = cleaned_text.strip()
     cleaned_text = cleaned_text.replace(strip_text, "")
     try:
@@ -26,14 +27,22 @@ class HomePage(BasePage, HomePageLocators):
         self.driver.get(self.url)
 
     # ---------- Match selection ----------
+    def get_home_team(self, index=1):
+        return self.item.TEAM_NAMES[(index - 1) * 2].text.strip()
 
-    def select_home_win(self, index=0):
+    def get_away_team(self, index=1):
+        return self.item.TEAM_NAMES[(index - 1) * 2 + 1].text.strip()
+
+    def select_home_win(self, index=1):
+        index = index - 1
         self.item.HOME_WIN_BUTTONS[index].click()
 
-    def select_draw(self, index=0):
+    def select_draw(self, index=1):
+        index = index - 1
         self.item.DRAW_BUTTONS[index].click()
 
-    def select_away_win(self, index=0):
+    def select_away_win(self, index=1):
+        index = index - 1
         self.item.AWAY_WIN_BUTTONS[index].click()
 
     # ---------- Bet Slip ----------
@@ -50,6 +59,7 @@ class HomePage(BasePage, HomePageLocators):
     # ---------- Getters ----------
 
     def get_balance(self):
+        sleep(2)
         balance_text = self.item.BALANCE_LABEL.get_text()
         strip_text = "Balance: €"
         balance = get_float_value(balance_text, strip_text)
@@ -61,8 +71,11 @@ class HomePage(BasePage, HomePageLocators):
         balance = get_float_value(balance_text, strip_text)
         return balance
 
-    def get_selected_teams(self):
-        return self.item.TEAMS.get_text()
+    def get_selected_teams(self, index=1):
+        names = self.item.TEAM_NAMES.get_text()
+        start = (index - 1) * 2
+        end = start + 2
+        return names[start:end]
 
     def get_selected_market(self):
         return self.item.WINNER.get_text()
@@ -86,7 +99,7 @@ class HomePage(BasePage, HomePageLocators):
 
     def get_receipt_bet_id(self):
         return self.item.BET_ID.get_text()
-    
+
     def get_receipt_timestamp(self):
         return self.item.RECEIPT_TIMESTAMP.get_text()
 
