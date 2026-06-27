@@ -14,12 +14,6 @@ that allows customers to wager money on match results with odds.
 
 **Bet Type**: Single bet only (no accumulator/multi-bets)
 
-**Out of scope:**
-* Live betting
-* Multi-bets/accumulators
-* Other sports
-* Mobile-specific UX requirements
-
 **Feature Scope:**
 - Desktop web application (Chrome)
 - Soccer/Football only
@@ -92,8 +86,7 @@ that allows customers to wager money on match results with odds.
 **Expected Result:**
 - "Place Bet" button is disabled OR
 - Error message appears: "Minimum stake is €1.00"
-- API call is NOT made
-- Bet is not placed
+- No bet should be placed
 
 **Alternative (if €1.00 is accepted):**
 - Stake €1.00 is accepted

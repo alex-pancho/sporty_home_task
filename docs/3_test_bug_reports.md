@@ -331,3 +331,88 @@ Difference: 0.45 (€0.45 discrepancy!)
 - Verify calculation logic: `payout = stake * odds`
 - Check rounding rules (should round to 2 decimals, not truncate)
 - Add unit tests for payout calculation
+
+
+======
+
+# BUG-007: `POST /api/reset-balance` returns reset balance but does not update the actual account balance
+
+**Severity:** Critical
+
+**Priority:** Critical
+
+**Component:** Backend API
+
+### Description
+
+According to the API specification, `POST /api/reset-balance` is a test endpoint that resets the user's balance to the initial value (**125.50**).
+
+The endpoint response indicates that the balance has been successfully reset and returns `125.50`. However, a subsequent call to `GET /api/balance` still returns the previous balance (`120.00`), meaning the account state has not actually been updated.
+
+As a result, the API response does not reflect the real system state.
+
+### Preconditions
+
+* Initial balance is **125.50**.
+* Place a successful bet with a stake of **5.50**.
+* Current balance becomes **120.00**.
+
+### Steps to Reproduce
+
+1. Call `GET /api/balance` and verify the balance is **120.00**.
+2. Call `POST /api/reset-balance`.
+3. Verify that the response body contains **125.50**.
+4. Call `GET /api/balance`.
+
+### Expected Result
+
+The refresh operation should reset the user's balance to **125.50**.
+
+Example:
+
+```text
+POST /api/reset-balance → balance = 125.50
+GET  /api/balance       → balance = 125.50
+```
+
+### Actual Result
+
+The refresh endpoint reports a successful reset but the account balance remains unchanged.
+
+```text
+POST /api/reset-balance → balance = 125.50
+GET  /api/balance       → balance = 120.00
+```
+
+### Business Impact
+
+The endpoint reports a successful balance reset without actually updating the persisted account state. This creates a discrepancy between the API response and the actual system state.
+
+Although this endpoint is intended for testing, it demonstrates that the balance update operation is not persisted. A similar defect in production balance operations (e.g., deposits or refunds) would have a critical financial impact by confirming a successful operation without updating the user's actual available funds.
+
+**The endpoint violates the principle that the returned resource representation must reflect the persisted system state.**
+
+### Evidence
+
+```text
+POST /api/reset-balance
+Response:
+{
+    "balance": 125.50
+}
+
+GET /api/balance
+Response:
+{
+    "balance": 120.00
+}
+```
+**Specification Violation**
+
+The API specification states:
+
+"Balance reset successfully"
+
+and returns a balance of 125.50.
+
+However, the persisted balance remains 120.00, meaning the implementation does not satisfy the contract defined by the API.

@@ -29,16 +29,16 @@
 
 ## Summary
 
-**Total Defects Found:** 5
+**Total Defects Found:** 6
 - Critical: 2
-- High: 2
+- High: 3
 - Medium: 0
 - Low: 1
 
 **Test Cases Passed:** [4/6]  
 **Test Cases Failed:** [2/6]
 
-**Blocker Issues:** [Yes/No] — YES [BUG-001], [BUG-002], [BUG-003],  [BUG-006] 
+**Blocker Issues:** [Yes/No] — YES [BUG-001], [BUG-002]
 
 **Quality Gate:** FAIL — Cannot release with BUG-001 (financial/legal risk)
 
@@ -53,4 +53,4 @@
 **Backend (API Layer):**
 - [ ] BUG-001: Filter /api/matches to exclude kickoffDate < NOW
 - [ ] BUG-001: Add API validation to reject bets on past matches (409 Conflict)
-- [ ] Verify response data mapping for matchId -> teams order
+- [ ] Introduce contract tests between API and UI models to prevent data mapping inconsistencies.
