@@ -28,7 +28,7 @@ class WebElement:
                 EC.presence_of_element_located(self._locator)
             )
         except (EXCEPT.TimeoutException, EXCEPT.WebDriverException):
-            log.info("Element not found: %s", self._locator)
+            log.error("Element not found: %s", self._locator)
             return None
 
     def is_presented(self):
@@ -46,7 +46,7 @@ class WebElement:
                 EC.element_to_be_clickable(self._locator)
             )
         except (EXCEPT.TimeoutException, EXCEPT.WebDriverException):
-            log.info("Element not clickable: %s", self._locator)
+            log.error("Element not clickable: %s", self._locator)
             return None
 
     def click(self):
@@ -109,7 +109,7 @@ class ManyWebElements(WebElement):
                 EC.presence_of_all_elements_located(self._locator)
             )
         except (EXCEPT.TimeoutException, EXCEPT.WebDriverException):
-            log.info("Elements not found: %s", self._locator)
+            log.error("Elements not found: %s", self._locator)
             return []
 
     def __getitem__(self, index):
