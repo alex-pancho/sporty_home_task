@@ -73,6 +73,3 @@ pytest tests/api -v
 pytest -v
 ```
 
-## Candidate ID
-
-candidate-c9ywt7uhfX
