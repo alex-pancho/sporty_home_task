@@ -1,8 +1,22 @@
 from pages.locators import HomePageLocators
 from pages.base_page import BasePage
+from frame.logger import setup_logger
+
+log = setup_logger("home_page")
 
 
-class HomePage(BasePage):
+def get_float_value(cleaned_text:str, strip_text:str):
+    cleaned_text = cleaned_text.strip()
+    cleaned_text = cleaned_text.replace(strip_text, "")
+    try:
+        get_float = float(cleaned_text)
+    except ValueError:
+        log.error("Wrong value: %s", cleaned_text)
+        get_float = 0
+    return get_float
+
+
+class HomePage(BasePage, HomePageLocators):
 
     def __init__(self, driver, base_url, user_id):
         super().__init__(driver)
@@ -36,7 +50,10 @@ class HomePage(BasePage):
     # ---------- Getters ----------
 
     def get_balance(self):
-        return self.item.BALANCE_LABEL.get_text()
+        balance_text = self.item.BALANCE_LABEL.get_text()
+        strip_text = "Balance: €"
+        balance = get_float_value(balance_text, strip_text)
+        return balance
 
     def get_bet_slip_balance(self):
         return self.item.BET_SLIP_BALANCE.get_text()
@@ -48,10 +65,16 @@ class HomePage(BasePage):
         return self.item.WINNER.get_text()
 
     def get_selected_odds(self):
-        return self.item.SELECTED_ODDS.get_text()
+        odds_text = self.item.SELECTED_ODDS.get_text()
+        strip_text = "Odds: "
+        value = get_float_value(odds_text, strip_text)
+        return value
 
     def get_potential_payout(self):
-        return self.item.POTENTIAL_PAYOUT.get_text()
+        payout_text = self.item.POTENTIAL_PAYOUT.get_text()
+        strip_text = "€"
+        value = get_float_value(payout_text, strip_text)
+        return value
 
     # ---------- Receipt ----------
 

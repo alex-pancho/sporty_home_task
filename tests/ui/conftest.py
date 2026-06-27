@@ -41,10 +41,7 @@ def browser(browser_config):
     # Uncomment for headless mode
     # options.add_argument("--headless")
     
-    driver = webdriver.Chrome(
-        options=options
-    )
-    
+    driver = webdriver.Chrome(options=options)
     yield driver
     
     # Cleanup

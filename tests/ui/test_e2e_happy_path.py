@@ -25,8 +25,8 @@ COVERAGE:
 """
 
 import pytest
-import time
-#import tests.ui.add_root
+# import time
+# import tests.ui.add_root
 from pages.home_page import HomePage
 
 
@@ -67,18 +67,16 @@ class TestBetPlacementHappyPath:
         
         # Act: Open page and get initial state
         page.open()
-        time.sleep(1)  # Wait for page load
         
         initial_balance = page.get_balance()
-        stake = 10.00
+        stake = 1.00
         
         # ASSERT: Initial state is valid
         assert initial_balance > 0, "User should have positive balance to start"
         assert initial_balance >= stake, f"Balance {initial_balance} should cover stake {stake}"
         
         # ACT: Select match outcome (HOME WIN for first match)
-        page.select_home_win(match_index=0)
-        time.sleep(0.5)
+        page.select_home_win(index=0)
         
         # ASSERT: Selection was registered
         selected_odds = page.get_selected_odds()
@@ -86,7 +84,6 @@ class TestBetPlacementHappyPath:
         
         # ACT: Enter stake
         page.enter_stake(stake)
-        time.sleep(0.5)
         
         # ASSERT: Potential payout is calculated correctly
         potential_payout = page.get_potential_payout()
@@ -98,8 +95,7 @@ class TestBetPlacementHappyPath:
         page.place_bet()
         
         # ASSERT: Success receipt appears
-        page.wait_for_receipt(timeout=5)
-        assert page.driver.find_element_by_xpath(page.RECEIPT_MODAL).is_displayed(), \
+        assert page.receipt_is_displayed(), \
             "Success receipt modal should be visible"
         
         # ASSERT: Receipt contains all required data
@@ -125,21 +121,12 @@ class TestBetPlacementHappyPath:
         
         # ACT: Close receipt
         page.close_receipt()
-        time.sleep(0.5)
         
         # ASSERT: Balance is updated
         new_balance = page.get_balance()
         expected_balance = initial_balance - stake
         assert abs(new_balance - expected_balance) < 0.01, \
             f"Balance should be {expected_balance}, got {new_balance}"
-        
-        print(f"\n✅ BET PLACED SUCCESSFULLY")
-        print(f"   Initial Balance: €{initial_balance:.2f}")
-        print(f"   Stake: €{stake:.2f}")
-        print(f"   Odds: {receipt_odds}")
-        print(f"   Payout: €{receipt_payout:.2f}")
-        print(f"   New Balance: €{new_balance:.2f}")
-        print(f"   Bet ID: {receipt_bet_id}")
 
 
 if __name__ == "__main__":

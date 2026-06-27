@@ -7,7 +7,7 @@ class ItemProxy:
 
     def __getattr__(self, name: str) -> WebElement:
 
-        locator = self.page.locators.get(name)
+        locator = self.page.__getattribute__(name)
 
         if locator is None:
             msg = (
