@@ -26,6 +26,7 @@ class ApiClient:
     def __init__(
         self,
         endpoint: Endpoint,
+        host: str,
         schema: type[BaseModel] | None = None,
         headers: Dict = None,
         timeout: int = 30,
@@ -34,7 +35,7 @@ class ApiClient:
     ) -> None:
         """
         endpoint: Endpoint dataclass object
-        url = "",
+        host = "",
         schema = "",
         headers = "",
         timeout = "",
@@ -49,7 +50,7 @@ class ApiClient:
             "User-Agent": "upc-qa-api-client/1.1",
         }
         self.session.headers.update(ua_header)
-        self.url = endpoint.endpoint
+        self.url = f"{host}/{endpoint.endpoint}"
         self.method = endpoint.method
         self.params: Dict[str, Any] = {}
         self.data: Dict[str, Any] = {}
