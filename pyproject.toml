@@ -5,8 +5,10 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
+    "datamodel-code-generator>=0.66.0",
     "pytest>=9.1.1",
     "python-dotenv>=1.2.2",
+    "pyyaml>=6.0.3",
     "requests>=2.34.2",
     "selenium>=4.45.0",
 ]
