@@ -185,8 +185,6 @@ in request and response
 ======
 
 
-===
-
 # BUG-004: Lack of Validation for Invalid Odds Filter Range
 
 **ID:** BUG-004
@@ -236,17 +234,14 @@ Matches with odds of **1.70** should be visible in the list (Inclusive range).
 **Actual Result:**
 Matches with odds of **1.70** are hidden/filtered out. (They only appear if the "Min" is set to 1.69 or lower).
 
-
-Ви абсолютно праві. Це класичний приклад **невідповідності документації (Requirement-Implementation Mismatch)**.
-
-Якщо у технічному завданні (або вашій таблиці вимог) написано "Minimum €1.01", а функціонально система вимагає "€1.00" (або навпаки), це потрібно негайно виправити, оскільки **вимоги — це еталон, за яким ми оцінюємо правильність роботи продукту.**
-
-Ось як правильно оформити цей баг (або запит на оновлення документації):
+======
 
 # DOC-001: Documentation Inconsistency - Minimum Stake Requirement
 
 **ID:** DOC-001
+
 **Priority:** 🟡 **LOW** 
+
 **Type:** Documentation / Requirement Error
 
 #### **Description**
@@ -268,3 +263,71 @@ The documentation and the application logic must be synchronized. If the busines
 #### **Actual Result**
 
 The documentation explicitly states "€1.01", creating ambiguity for the testing process and potential future compliance issues.
+
+======
+
+# BUG-006: Incorrect Payout Calculation
+
+**ID:** BUG-006
+
+**Priority:** 🔴 **CRITICAL**
+
+**Severity:** High (Financial Impact)
+
+**Component:** Bet Slip / Payout Calculation
+
+### **Description**
+
+The potential payout displayed in the bet slip is calculated incorrectly. For a stake of €1.00 with odds of 2.45, the system shows €2.00, but the correct payout should be €2.45.
+
+**Formula:**
+```
+Payout = Stake × Odds
+€1.00 × 2.45 = €2.45 ✅ (correct)
+€1.00 × 2.45 = €2.00 ❌ (actual display)
+```
+
+### **Steps to Reproduce**
+
+1. Open application
+2. Select any match with odds of 2.45 (or similar)
+3. Enter stake: €1.00
+4. Observe "Potential Payout" field
+
+### **Expected Result**
+
+Potential Payout should display: **€2.45**
+
+### **Actual Result**
+
+Potential Payout displays: **€2.00**
+
+### **Impact**
+
+- 🔴 **CRITICAL Financial Impact:** Users see incorrect payout before placing bet
+- User confusion: "Why is my payout only €2.00 instead of €2.45?"
+- Trust issue: Makes system look unreliable
+- Could affect betting decisions
+
+### **Root Cause (Hypothesis)**
+
+- Rounding error in calculation
+- Math.round() instead of proper decimal handling
+- Truncation instead of multiplication
+- Display formatter issue
+
+### **Technical Details**
+
+```
+Expected: stake * odds = 1.00 * 2.45 = 2.45
+Actual: 1.00 * 2.00 = 2.00
+
+Difference: 0.45 (€0.45 discrepancy!)
+```
+
+### **Recommendation**
+
+- Use proper decimal arithmetic (not floating point)
+- Verify calculation logic: `payout = stake * odds`
+- Check rounding rules (should round to 2 decimals, not truncate)
+- Add unit tests for payout calculation

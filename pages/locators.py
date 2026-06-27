@@ -33,7 +33,7 @@ class HomePageLocators:
     SELECTED_ODDS = '//span[@class="betSelectionOdds"]'
 
     # Receipt Modal (Success)
-    RECEIPT_MODAL = '//div[@class="card"]/div[@class="modalBody"]'
+    RECEIPT_MODAL = '//div[@id="modal-success"]'
     RECEIPT_TITLE = '//h2[@class="modalTitle"]'
     BET_ID = '//*[@id="modal-success-bet-id"]'
     RECEIPT_MATCH = '//*[@id="modal-success-match"]'

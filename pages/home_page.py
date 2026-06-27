@@ -56,7 +56,10 @@ class HomePage(BasePage, HomePageLocators):
         return balance
 
     def get_bet_slip_balance(self):
-        return self.item.BET_SLIP_BALANCE.get_text()
+        balance_text = self.item.BET_SLIP_BALANCE.get_text()
+        strip_text = "Balance: €"
+        balance = get_float_value(balance_text, strip_text)
+        return balance
 
     def get_selected_teams(self):
         return self.item.TEAMS.get_text()
@@ -79,22 +82,33 @@ class HomePage(BasePage, HomePageLocators):
     # ---------- Receipt ----------
 
     def receipt_is_displayed(self):
-        return self.item.RECEIPT_MODAL.is_displayed()
+        return self.item.RECEIPT_MODAL.is_displayed(timeout=5)
 
     def get_receipt_bet_id(self):
         return self.item.BET_ID.get_text()
+    
+    def get_receipt_timestamp(self):
+        return self.item.RECEIPT_TIMESTAMP.get_text()
 
     def get_receipt_match(self):
         return self.item.RECEIPT_MATCH.get_text()
 
     def get_receipt_stake(self):
-        return self.item.RECEIPT_STAKE.get_text()
+        stake_text = self.item.RECEIPT_STAKE.get_text()
+        strip_text = "€"
+        value = get_float_value(stake_text, strip_text)
+        return value
 
     def get_receipt_odds(self):
-        return self.item.RECEIPT_ODDS.get_text()
+        odds_value = self.item.RECEIPT_ODDS.get_text()
+        value = get_float_value(odds_value, "")
+        return value
 
     def get_receipt_payout(self):
-        return self.item.RECEIPT_PAYOUT.get_text()
+        payout_text = self.item.RECEIPT_PAYOUT.get_text()
+        strip_text = "€"
+        value = get_float_value(payout_text, strip_text)
+        return value
 
     def close_receipt(self):
         self.item.RECEIPT_CLOSE_BUTTON.click()

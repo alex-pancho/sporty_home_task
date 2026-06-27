@@ -32,8 +32,8 @@ class WebElement:
     def is_presented(self):
         return self.find(timeout=1) is not None
 
-    def is_displayed(self):
-        element = self.find(timeout=1)
+    def is_displayed(self, timeout=1):
+        element = self.find(timeout=timeout)
         return element.is_displayed() if element else False
 
     def wait_to_be_clickable(self, timeout=None):

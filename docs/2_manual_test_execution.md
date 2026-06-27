@@ -9,7 +9,7 @@
 
 | Test Case | Status | Notes |
 |-----------|--------|-------|
-| TC-001: Happy Path | ❌ FAIL | [BUG-001], [BUG-002], [BUG-003] |
+| TC-001: Happy Path | ❌ FAIL | [BUG-001], [BUG-002], [BUG-003], [BUG-006] |
 | TC-002: Min Stake | ✅ PASS  | |
 | TC-003: Max Stake | ✅ PASS | |
 | TC-004: Insufficient Balance | ✅ PASS | |
@@ -38,7 +38,7 @@
 **Test Cases Passed:** [4/6]  
 **Test Cases Failed:** [2/6]
 
-**Blocker Issues:** [Yes/No] — YES [BUG-001], [BUG-002], [BUG-003]
+**Blocker Issues:** [Yes/No] — YES [BUG-001], [BUG-002], [BUG-003],  [BUG-006] 
 
 **Quality Gate:** FAIL — Cannot release with BUG-001 (financial/legal risk)
 
