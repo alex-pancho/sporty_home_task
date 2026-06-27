@@ -31,10 +31,20 @@ utils/
 ```
 
 ## Installation
+### uv
+```bash
+git clone https://github.com/alex-pancho/sporty_home_task.git
+cd sporty_home_task
+
+uv sync
+```
+
+### pip
 
 ```bash
 git clone https://github.com/alex-pancho/sporty_home_task.git
 cd sporty_home_task
+
 
 python -m venv venv
 
