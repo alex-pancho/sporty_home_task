@@ -8,9 +8,6 @@ class Locator:
 
 class HomePageLocators:
 
-    def __init__(self, driver):
-        super().__init__(driver)
-
     # Header
     BALANCE_LABEL = '//*[@id="header-balance"]/span[2]'
     
@@ -26,8 +23,8 @@ class HomePageLocators:
 
     # Bet Slip
     BET_SLIP = '//aside'
-    TEAMS = '//div[@class="betSelectionTeams"]'
-    WINNER = '//div[@class="betSelectionMarket"]'
+    SELECTED_TEAMS = '//div[@class="betSelectionTeams"]'
+    SELECTED_MARKET = '//div[@class="betSelectionMarket"]'
     BET_SLIP_BALANCE = '//*[@id="bet-slip-balance"]'
     POTENTIAL_PAYOUT = '//*[@id="bet-slip-potential-payout"]'
     STAKE_INPUT = '//input[@id="bet-slip-stake-input"]'

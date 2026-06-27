@@ -1,69 +1,105 @@
-from locators import HomePageLocators
-from base_page import BasePage
+from pages.locators import HomePageLocators
+from pages.base_page import BasePage
+
 
 class HomePage(BasePage):
 
     def __init__(self, driver, base_url, user_id):
         super().__init__(driver)
-        self.main_page_url = f"{base_url}/?user-id={user_id}"
-    
+        self.url = f"{base_url}/?user-id={user_id}"
+
     def open(self):
         self.driver.get(self.url)
 
     # ---------- Match selection ----------
 
     def select_home_win(self, index=0):
-        self.find_elements(By.XPATH, HomePageLocators.HOME_WIN_BUTTONS)[index].click()
+        self.item.HOME_WIN_BUTTONS[index].click()
 
     def select_draw(self, index=0):
-        self.find_elements(By.XPATH, HomePageLocators.DRAW_BUTTONS)[index].click()
+        self.item.DRAW_BUTTONS[index].click()
 
     def select_away_win(self, index=0):
-        self.find_elements(By.XPATH, HomePageLocators.AWAY_WIN_BUTTONS)[index].click()
+        self.item.AWAY_WIN_BUTTONS[index].click()
 
     # ---------- Bet Slip ----------
 
     def enter_stake(self, stake):
-        field = self.find(By.XPATH, HomePageLocators.STAKE_INPUT)
-        field.clear()
-        field.send_keys(str(stake))
+        self.item.STAKE_INPUT.send_keys(str(stake))
 
     def place_bet(self):
-        self.find(By.XPATH, HomePageLocators.PLACE_BET_BUTTON).click()
+        self.item.PLACE_BET_BUTTON.click()
+
+    def remove_all(self):
+        self.item.REMOVE_ALL_BUTTON.click()
 
     # ---------- Getters ----------
 
     def get_balance(self):
-        return self.find(By.XPATH, HomePageLocators.BALANCE).text
+        return self.item.BALANCE_LABEL.get_text()
 
-    def get_payout(self):
-        return self.find(By.XPATH, HomePageLocators.POTENTIAL_PAYOUT).text
+    def get_bet_slip_balance(self):
+        return self.item.BET_SLIP_BALANCE.get_text()
+
+    def get_selected_teams(self):
+        return self.item.TEAMS.get_text()
+
+    def get_selected_market(self):
+        return self.item.WINNER.get_text()
 
     def get_selected_odds(self):
-        return self.find(By.XPATH, HomePageLocators.SELECTED_ODDS).text
+        return self.item.SELECTED_ODDS.get_text()
+
+    def get_potential_payout(self):
+        return self.item.POTENTIAL_PAYOUT.get_text()
 
     # ---------- Receipt ----------
 
     def receipt_is_displayed(self):
-        return self.find(By.XPATH, HomePageLocators.RECEIPT_MODAL).is_displayed()
+        return self.item.RECEIPT_MODAL.is_displayed()
 
     def get_receipt_bet_id(self):
-        return self.find(By.XPATH, HomePageLocators.BET_ID).text
+        return self.item.BET_ID.get_text()
+
+    def get_receipt_match(self):
+        return self.item.RECEIPT_MATCH.get_text()
+
+    def get_receipt_stake(self):
+        return self.item.RECEIPT_STAKE.get_text()
+
+    def get_receipt_odds(self):
+        return self.item.RECEIPT_ODDS.get_text()
+
+    def get_receipt_payout(self):
+        return self.item.RECEIPT_PAYOUT.get_text()
 
     def close_receipt(self):
-        self.find(By.XPATH, HomePageLocators.RECEIPT_CLOSE_BUTTON).click()
+        self.item.RECEIPT_CLOSE_BUTTON.click()
+
+    # ---------- Error modal ----------
+
+    def error_modal_is_displayed(self):
+        return self.item.ERROR_MODAL.is_displayed()
+
+    def get_error_message(self):
+        return self.item.ERROR_TEXT.get_text()
+
+    def click_rebet(self):
+        self.item.ERROR_REBET_BUTTON.click()
+
+    def close_error_modal(self):
+        self.item.ERROR_CLOSE_BUTTON.click()
 
     # ---------- Validation ----------
 
     def stake_error_is_displayed(self):
-        return self.find(By.XPATH, HomePageLocators.STAKE_ERROR).is_displayed()
+        return self.item.STAKE_ERROR.is_displayed()
 
     def insufficient_balance_error_is_displayed(self):
-        return self.find(By.XPATH, HomePageLocators.INSUFFICIENT_BALANCE_ERROR).is_displayed()
+        return self.item.INSUFFICIENT_BALANCE_ERROR.is_displayed()
 
+    def minimum_stake_error_is_displayed(self):
+        return self.item.MIN_STAKE_ERROR.is_displayed()
 
-if __name__ == "__main__":
-    driver = ""
-    my_home = HomePage(driver)
-    item = my_home.item.menu_home
-    print(item)
+    def maximum_stake_error_is_displayed(self):
+        return self.item.MAX_STAKE_ERROR.is_displayed()

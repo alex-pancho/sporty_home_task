@@ -5,9 +5,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.ui import WebDriverWait
-import add_root
-from frame.logger import logger as log
+# import pages.add_root
+from frame.logger import setup_logger
 
+log = setup_logger("elements")
 
 class WebElement:
 
